@@ -1,9 +1,0 @@
-语法定义
-letter　->　A|B|...|Z|a|b|...|z
-digit　->　0|1|2|3|4|5|6|7|8|9
-id　->　letter(letter|digit)*
-num -> 0|((1|2|3|4|5|6|7|8|9)digit*)
-
-keyword: if,else,while,for,int,double,char,return,break;
-逻辑运算符（logic_op）: ！,||,&& ;
-关系运算符（rel_op）: <,>,<=,>=,!=,==;
