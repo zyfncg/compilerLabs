@@ -7,4 +7,9 @@ public class Word extends Token {
         super(tag);
         lexeme = s;
     }
+
+    @Override
+    public String toString() {
+        return tag + ":" + lexeme;
+    }
 }

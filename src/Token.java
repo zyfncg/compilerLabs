@@ -6,4 +6,7 @@ public class Token {
     public Token(int tag){
         this.tag = tag;
     }
+    public String toString(){
+        return String.valueOf(tag);
+    }
 }
