@@ -51,7 +51,10 @@ public class NFAPrinter {
 
     private void printNfaNode(NFANode node) {
         if (node.next == null) {
-            System.out.print("TERMINAL");
+            System.out.print("TERMINAL  ");
+        }
+        if(node.isTerminal()){
+            System.out.println(node.getNodeName());
         }
         else {
             System.out.print("NFA state: " + node.getStateNum());

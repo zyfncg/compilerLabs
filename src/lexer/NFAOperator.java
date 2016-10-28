@@ -28,25 +28,40 @@ public class NFAOperator {
 
             NFANode nfa = nfaStack.pop();
             if (nfa.next != null && nfa.getEdge() == NFANode.EPSILON) {
-                if (nfaSet.contains(nfa.next) == false)  {
+                if (result.contains(nfa.next) == false)  {
                     nfaStack.push(nfa.next);
-                    input.add(nfa.next);
+                    result.add(nfa.next);
                 }
             }
 
-            if (p.next2 != null && p.getEdge() == Nfa.EPSILON) {
-                if (input.contains(p.next2) == false) {
-                    Nfa next = p.next2;
-
-                    nfaStack.push(p.next2);
-                    input.add(p.next2);
+            if (nfa.next2 != null && nfa.getEdge() == NFANode.EPSILON) {
+                if (result.contains(nfa.next2) == false) {
+                    nfaStack.push(nfa.next2);
+                    result.add(nfa.next2);
                 }
             }
         }
 
-        if (input != null && debug) {
-            System.out.println("{ " + strFromNfaSet(input) + " }");
-        }
-        return null;
+//        if (result != null) {
+//            System.out.println("{ " + strFromNfaSet(input) + " }");
+//        }
+        return result;
     }
+
+    public Set<NFANode> move(Set<NFANode> nfaSet,char c){
+        Set<NFANode> result = new HashSet<>();
+        if(nfaSet == null && nfaSet.isEmpty()){
+            return null;
+        }
+        Iterator<NFANode> it = nfaSet.iterator();
+        while (it.hasNext()){
+            NFANode nfa = it.next();
+            if((nfa.getEdge() == NFANode.CCL && nfa.inputSet.contains((byte)c))|| nfa.getEdge() == c){
+                result.add(nfa.next);
+            }
+        }
+
+        return result;
+    }
+
 }

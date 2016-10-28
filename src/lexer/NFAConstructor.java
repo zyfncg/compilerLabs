@@ -32,7 +32,7 @@ public class NFAConstructor {
 //            printer.printNfa(start.startNode);
             NFAPair pair1 = new NFAPair();
             expr(pair1);
-            pair.endNode.setTerminal(true);
+            pair1.endNode.setTerminal(true);
             pair1.endNode.setNodeName(lexer.getReName());
             NFANode startNode = nfaManager.newNFANode();
             startNode.next = start.startNode;

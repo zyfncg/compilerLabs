@@ -11,6 +11,7 @@ public class DFA {
     private static int STATE_NUM = 0;
     private int stateID = 0;
     private Set<NFANode> nfaStates = new HashSet<>();
+    private String dfaName;
     boolean accept = false;
 
     private DFA(){
@@ -26,9 +27,14 @@ public class DFA {
             dfa.nfaStates.add(nfa);
             if(nfa.isTerminal()){
                 dfa.accept = true;
+                dfa.dfaName = nfa.getNodeName();
             }
         }
         return dfa;
+    }
+
+    public Set<NFANode> getNfaStates() {
+        return nfaStates;
     }
 
     public boolean hasNFAStates(Set<NFANode> nfaSet){
@@ -38,5 +44,15 @@ public class DFA {
         return false;
     }
 
+    public int getStateID() {
+        return stateID;
+    }
 
+    public String getDfaName() {
+        return dfaName;
+    }
+
+    public void setDfaName(String dfaName) {
+        this.dfaName = dfaName;
+    }
 }

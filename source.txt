@@ -1,1 +1,5 @@
 test = x + y;
+if(a==1)
+    a = 21+1;
+else
+    a=a-1;
