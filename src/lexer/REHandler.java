@@ -45,21 +45,21 @@ public class REHandler {
     }
 
     private void setKeyList(String keyString){
-        String str[] = keyString.split(":");
+        String str[] = keyString.split(":  ");
         String keys[] = str[1].split(",");
         for(int i =0 ;i<keys.length;i++){
             keyList.add(keys[i]);
         }
     }
     private void setOpList(String opString){
-        String str[] = opString.split(":");
+        String str[] = opString.split(":  ");
         String ops[] = str[1].split(",");
         for(int i =0 ;i<ops.length;i++){
             opList.add(ops[i]);
         }
     }
     private void setDelimiterList(String delString){
-        String str[] = delString.split(":");
+        String str[] = delString.split(":  ");
         String dels[] = str[1].split(",");
         for(int i =0 ;i<dels.length;i++){
             delimiterList.add(dels[i]);
