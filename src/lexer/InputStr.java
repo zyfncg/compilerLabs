@@ -36,9 +36,6 @@ public class InputStr {
     public boolean isFinish(){
         return isFinish;
     }
-    public void printInput(){
-        System.out.println(input);
-    }
 
     private String getInput(){
         String filePath = "source.txt";

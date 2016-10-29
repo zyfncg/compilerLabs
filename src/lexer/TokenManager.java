@@ -24,16 +24,14 @@ public class TokenManager {
         opList = reHandler.getOpList();
         delimiterList = reHandler.getDelimiterList();
 
-        System.out.println(keyList);
-        System.out.println(opList);
-        System.out.println(delimiterList);
-
     }
     public void addToken(Token token){
         tokenList.add(token);
     }
 
     public void printAllToken(){
+        System.out.println();
+        System.out.println("Token序列：");
         for (int i = 0; i <tokenList.size() ; i++) {
             Token token = tokenList.get(i);
             token.printToken();

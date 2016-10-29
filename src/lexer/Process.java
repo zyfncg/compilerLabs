@@ -27,7 +27,6 @@ public class Process {
     }
 
     public void interpretor(){
-        input.printInput();
         char c;
         String tokenStr = "";
         Token token;

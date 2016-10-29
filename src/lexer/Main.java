@@ -3,7 +3,7 @@ package lexer;
 /**
  * Created by ZhangYF on 2016/10/27.
  */
-public class Test {
+public class Main {
     public static void main(String[] args) throws Exception {
 //        REHandler reHandler = REHandler.getInstance();
 //        Lex lexer = new Lex(reHandler);
