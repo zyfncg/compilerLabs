@@ -1,0 +1,26 @@
+stmts -> stmt stmts
+ ¡¡ ¡¡ | 
+
+stmt ->id = judge;
+      | id = judge;
+      | if(judge) block
+      | if(judge) block else block
+      | while(judge) block
+      | print judge;
+block -> { stmts }
+judge -> expr < expr 
+     | expr <= expr
+     | expr >= expr
+     | expr > expr
+     | expr
+
+expr -> expr + term
+      | expr - term
+      | term
+
+term -> term * unary
+      | term / unary
+      | factor
+
+factor -> num
+        | id
