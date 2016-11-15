@@ -1,26 +1,28 @@
 stmts -> stmt stmts
- ¡¡ ¡¡ | 
+        |
 
-stmt ->id = judge;
-      | if(judge) block
+stmt -> id = judge;
       | if(judge) block else block
       | while(judge) block
 
 block -> { stmts }
 
-judge -> expr < expr 
-     | expr <= expr
-     | expr >= expr
-     | expr > expr
-     | expr
+judge -> expr judge1
+judge1 -> < expr
+       | > expr
+       |
 
-expr -> expr + term
-      | expr - term
-      | term
+expr -> term expr1
+expr1 -> expr2 expr1
+       |
+expr2 -> + term
+       | - term
 
-term -> term * unary
-      | term / unary
-      | factor
+term -> factor term1
+term1-> term2 term1
+      |
+term2-> * factor
+      | / factor
 
 factor -> num
         | id
