@@ -44,7 +44,7 @@ public class Symbol {
         symbolMap.put(EPSILON,"epsilon");
         symbolMap.put(IF,"if");
         symbolMap.put(ELSE,"else");
-        symbolMap.put(WHERE,"where");
+        symbolMap.put(WHERE,"while");
         symbolMap.put(ID,"id");
         symbolMap.put(NUM,"num");
         symbolMap.put(STMTS,"stmts");
@@ -55,7 +55,7 @@ public class Symbol {
         symbolMap.put(EXPR,"expr");
         symbolMap.put(EXPR1,"expr1");
         symbolMap.put(EXPR2,"expr2");
-        symbolMap.put(TERM,"TERM");
+        symbolMap.put(TERM,"term");
         symbolMap.put(TERM1,"term1");
         symbolMap.put(TERM2,"term2");
         symbolMap.put(FACTOR,"factor");
@@ -69,6 +69,9 @@ public class Symbol {
                 return key;
             }
         }
+        if(str.length()==1){
+            return (int)str.charAt(0);
+        }
         return 0;
     }
     public static String getName(int key){
@@ -79,5 +82,8 @@ public class Symbol {
         return symbolMap.get(key);
     }
 
+    public static boolean isTerminal(int n){
+        return n<300;
+    }
 
 }

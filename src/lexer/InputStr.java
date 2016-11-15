@@ -45,7 +45,7 @@ public class InputStr {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String s;
             while((s = br.readLine())!=null){
-                result += s;
+                result += s+'\n';
             }
             br.close();
         }catch(Exception e){

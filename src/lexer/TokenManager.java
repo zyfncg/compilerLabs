@@ -63,5 +63,13 @@ public class TokenManager {
         return false;
     }
 
+    public List<Integer> getTokenList(){
+        List<Integer> result = new ArrayList<>();
+        for(int i=0;i<tokenList.size();i++){
+            Token token = tokenList.get(i);
+            result.add(token.getToken());
+        }
+        return result;
+    }
 
 }

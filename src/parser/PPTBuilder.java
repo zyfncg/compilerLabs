@@ -7,7 +7,9 @@ import java.util.List;
  */
 public class PPTBuilder {
 
-    private final static int Fail = -1;
+    private Symbol symbol = new Symbol();
+
+    public final static int Fail = -1;
     private ProductionTable productionTable = ProductionTable.getInstance();
     private int ppt[][] = new int[Symbol.NO_TERMINAL_NUM][Symbol.TERMINAL_MAX];
 
@@ -55,5 +57,10 @@ public class PPTBuilder {
             }
             System.out.println();
         }
+    }
+    public int getNext(int curSymbol,int curToken){
+        int ppt_y = curSymbol - Symbol.NO_TERMINAL_START - 1;
+        int ppt_x = curToken;
+        return ppt[ppt_y][ppt_x];
     }
 }

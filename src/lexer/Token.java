@@ -1,5 +1,7 @@
 package lexer;
 
+import parser.Symbol;
+
 /**
  * Created by ZhangYF on 2016/10/28.
  */
@@ -20,5 +22,10 @@ public class Token {
 
     public String getLexem(){
         return lexem;
+    }
+
+    public int getToken(){
+        int result = Symbol.getSymbol(lexem);
+        return result;
     }
 }

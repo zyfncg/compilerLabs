@@ -1,5 +1,7 @@
 package lexer;
 
+import parser.Symbol;
+
 /**
  * Created by ZhangYF on 2016/10/28.
  */
@@ -17,5 +19,11 @@ public class REToken extends Token {
     @Override
     public String getLexem(){
         return lexem;
+    }
+
+    @Override
+    public int getToken() {
+        int result = Symbol.getSymbol(reName);
+        return result;
     }
 }

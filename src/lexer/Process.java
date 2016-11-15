@@ -15,11 +15,11 @@ public class Process {
 
         NFAPair pair = new NFAPair();
         nfaConstructor.unionRE(pair);
-        NFAPrinter printer = new NFAPrinter();
-        printer.printNfa(pair.startNode);
+//        NFAPrinter printer = new NFAPrinter();
+//        printer.printNfa(pair.startNode);
         DFAConstructor dfaConstructor = new DFAConstructor(pair.startNode);
         dfaConstructor.nfa2dfa();
-        dfaConstructor.printDFATable();
+//        dfaConstructor.printDFATable();
 
         input = InputStr.getInstance();
         dfaMatch = new DFAMatch(dfaConstructor.getDfaList(),dfaConstructor.getDfaStateTable());
