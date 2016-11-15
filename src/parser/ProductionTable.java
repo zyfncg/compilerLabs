@@ -10,11 +10,12 @@ public class ProductionTable {
 
     private Map<Integer,List<Integer>> firstSet = new HashMap<>();
     private Map<Integer,List<Integer>> followSet = new HashMap<>();
-    private Map<Integer,List<Integer>> selectSet = new HashMap<>();
 
     private ProductionTable() {
         initPlist();
         initSet();
+        calFirstSet();
+        calFollowSet();
     }
     private static ProductionTable instance = new ProductionTable();
     public static ProductionTable getInstance(){
@@ -59,9 +60,10 @@ public class ProductionTable {
             firstSet.put(i,first);
             List<Integer> follow = new ArrayList<>();
             followSet.put(i,follow);
-            List<Integer> select = new ArrayList<>();
-            followSet.put(i,select);
         }
+        List<Integer> SFollow = new ArrayList<>();
+        SFollow.add(Symbol.END);
+        followSet.put(Symbol.STMTS,SFollow);
     }
 
     private void calFirstSet(){
@@ -115,9 +117,104 @@ public class ProductionTable {
             isFinish = true;
             for(int no_terminal:followSet.keySet()){
                 List<Integer> follow = followSet.get(no_terminal);
+                for (Production production: pList) {//遍历所有表达式
+                    List<Integer> right = production.getRight();
+                    if(right.contains(no_terminal)){//右部包含此非终结符
+                        int left = production.getLeft();
+                        for(int i = 0;i<right.size();i++){
+                            int beta = right.get(i);
+                            if(beta == no_terminal){
+                                if(i<right.size()-1){
+                                    for(int j=i+1;j<right.size();j++){//从此处开始往后扫描
+                                        int beta1 = right.get(j);
+                                        if(beta1 < Symbol.NO_TERMINAL_START){//为终结符时
+                                            if(!follow.contains(beta1)){
+                                                follow.add(beta1);
+                                                isFinish = false;
+                                            }
+                                            break;
+                                        }else{//为非终结符时
+                                            List<Integer> betaFollow = firstSet.get(beta1);
+                                            for(int bf:betaFollow){
+                                                if(!follow.contains(bf) && bf != Symbol .EPSILON){
+                                                    follow.add(bf);
+                                                    isFinish = false;
+                                                }
+                                            }
+                                            if(!betaFollow.contains(Symbol.EPSILON)){//beta1不为空
+                                                break;
+                                            }else if(j == right.size()-1){//后面式子可以为空
+                                                List<Integer> leftFollow = followSet.get(left);
+                                                for(int lf : leftFollow){
+                                                    if(!follow.contains(lf)){
+                                                        follow.add(lf);
+                                                        isFinish = false;
+                                                    }
+                                                }
+                                                break;
+                                            }
 
+                                        }
+
+                                    }
+                                }else if(i == right.size()-1){
+                                    List<Integer> leftFollow = followSet.get(left);
+                                    for(int lf : leftFollow){
+                                        if(!follow.contains(lf)){
+                                            follow.add(lf);
+                                            isFinish = false;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
             }
 
         }while(!isFinish);
+    }
+
+    public Production getProduction(int index){
+        return pList.get(index);
+    }
+    public int getProductionNum(){
+        return pList.size();
+    }
+
+    public List<Integer> getFirst(List<Integer> ab){
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0;i<ab.size();i++){
+            int beta = ab.get(i);
+            if(beta < Symbol.NO_TERMINAL_START){//为终结符时
+                if(!result.contains(beta)){
+                    result.add(beta);
+                }
+                break;
+            }else{//为非终结符时
+                List<Integer> betaFirst = firstSet.get(beta);
+                for(int bf:betaFirst){
+                    if(!result.contains(bf) && bf != Symbol .EPSILON){
+                        result.add(bf);
+                    }
+                }
+                if(!betaFirst.contains(Symbol.EPSILON)){//beta不为空
+                    break;
+                }else if(i == ab.size()-1){//推导式可以为空
+                    result.add(Symbol.EPSILON);
+                }
+
+            }
+        }
+        return result;
+    }
+
+    public List<Integer> getFirstSet(int key) {
+        return firstSet.get(key);
+    }
+
+    public List<Integer> getFollowSet(int key) {
+        return followSet.get(key);
     }
 }

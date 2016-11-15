@@ -10,6 +10,7 @@ public class Symbol {
 
     public static final int NO_TERMINAL_START = 300;
     public static final int NO_TERMINAL_NUM = 12;
+    public static final int TERMINAL_MAX = 262;
 
     public static final int EPSILON = -1;
 
@@ -36,7 +37,7 @@ public class Symbol {
     public static final int FACTOR = 312;
 
 
-    private Map<Integer,String> symbolMap = new HashMap<>();
+    private static Map<Integer,String> symbolMap = new HashMap<>();
 
     public Symbol() {
 
@@ -61,7 +62,7 @@ public class Symbol {
 
     }
 
-    public int getSymbol(String str){
+    public static int getSymbol(String str){
         for (int key: symbolMap.keySet()) {
             String sym = symbolMap.get(key);
             if(sym.equals(str)){
@@ -70,7 +71,11 @@ public class Symbol {
         }
         return 0;
     }
-    public String getName(int key){
+    public static String getName(int key){
+        if(0<key && key<256){
+            String result = ""+(char)key;
+            return result;
+        }
         return symbolMap.get(key);
     }
 
