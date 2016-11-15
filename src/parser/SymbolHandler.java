@@ -10,5 +10,12 @@ import java.util.Map;
 public class SymbolHandler {
     private Map<Integer,List<Integer>> firstSet = new HashMap<>();
     private Map<Integer,List<Integer>> followSet = new HashMap<>();
+    private Map<Integer,List<Integer>> selectSet = new HashMap<>();
+
+    private void calFirstSet(){
+        ProductionTable productionTable = ProductionTable.getInstance();
+
+    }
+
 
 }

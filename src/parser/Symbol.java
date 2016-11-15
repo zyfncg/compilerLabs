@@ -8,10 +8,12 @@ import java.util.Map;
  */
 public class Symbol {
 
+    public static final int NO_TERMINAL_START = 300;
     public static final int NO_TERMINAL_NUM = 12;
 
     public static final int EPSILON = -1;
 
+    public static final int END = 256;
     public static final int IF = 257;
     public static final int ELSE = 258;
     public static final int WHERE = 259;

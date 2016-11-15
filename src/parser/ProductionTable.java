@@ -1,8 +1,6 @@
 package parser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ZhangYF on 2016/11/14.
@@ -10,8 +8,13 @@ import java.util.List;
 public class ProductionTable {
     private List<Production> pList = new ArrayList<>();
 
+    private Map<Integer,List<Integer>> firstSet = new HashMap<>();
+    private Map<Integer,List<Integer>> followSet = new HashMap<>();
+    private Map<Integer,List<Integer>> selectSet = new HashMap<>();
+
     private ProductionTable() {
         initPlist();
+        initSet();
     }
     private static ProductionTable instance = new ProductionTable();
     public static ProductionTable getInstance(){
@@ -48,5 +51,73 @@ public class ProductionTable {
         pList.add(new Production( Symbol.FACTOR, Arrays.asList(Symbol.NUM)));
         pList.add(new Production( Symbol.FACTOR, Arrays.asList(Symbol.ID)));
 
+    }
+
+    private void initSet(){
+        for(int i = Symbol.NO_TERMINAL_START+1;i<=Symbol.NO_TERMINAL_START+Symbol.NO_TERMINAL_NUM;i++){
+            List<Integer> first = new ArrayList<>();
+            firstSet.put(i,first);
+            List<Integer> follow = new ArrayList<>();
+            followSet.put(i,follow);
+            List<Integer> select = new ArrayList<>();
+            followSet.put(i,select);
+        }
+    }
+
+    private void calFirstSet(){
+        boolean isFinish;
+        do{
+            isFinish = true;
+            for(int no_terminal:firstSet.keySet()){
+                List<Integer> first = firstSet.get(no_terminal);
+
+                for (Production production: pList) {//遍历所有表达式
+                    int left = production.getLeft();
+                    if(left == no_terminal){//找出推导式
+                        List<Integer> right = production.getRight();
+                        for (int i = 0; i < right.size(); i++) {
+                            int beta = right.get(i);
+                            if(beta < Symbol.NO_TERMINAL_START){//为终结符时
+                                if(!first.contains(beta)){
+                                    first.add(beta);
+                                    isFinish = false;
+                                }
+                                break;
+                            }else{//为非终结符时
+                                List<Integer> betaFirst = firstSet.get(beta);
+                                for(int bf:betaFirst){
+                                    if(!first.contains(bf) && bf != Symbol .EPSILON){
+                                        first.add(bf);
+                                        isFinish = false;
+                                    }
+                                }
+                                if(!betaFirst.contains(Symbol.EPSILON)){//beta不为空
+                                    break;
+                                }else if(i == right.size()-1){//推导式可以为空
+                                    first.add(Symbol.EPSILON);
+                                    isFinish = false;
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }while (!isFinish);
+    }
+
+
+    private void calFollowSet(){
+        boolean isFinish;
+        do{
+            isFinish = true;
+            for(int no_terminal:followSet.keySet()){
+                List<Integer> follow = followSet.get(no_terminal);
+
+            }
+
+        }while(!isFinish);
     }
 }
